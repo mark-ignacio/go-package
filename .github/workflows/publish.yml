@@ -17,8 +17,12 @@ jobs:
         run: go install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.35.3
       - name: load version from file
         run: echo "VERSION=$(cat VERSION)" >> "$GITHUB_ENV"
-      - name: build and publish
+      - name: make all
         run: |
           make all VERSION=$VERSION ARCH=amd64
           make all VERSION=$VERSION ARCH=arm64
-          curl -F package=@dist/* https://${{ secrets.GEMFURY_TOKEN }}@push.fury.io/iio/
+      - name: publish
+        working-directory: dist
+        run: |
+          ls | xargs -n1 -I '{}' \
+            curl -F package=@{} https://${{ secrets.GEMFURY_TOKEN }}@push.fury.io/iio/
