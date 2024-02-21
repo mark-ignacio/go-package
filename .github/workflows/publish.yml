@@ -1,0 +1,22 @@
+on:
+  push:
+    tags:
+      - v*
+  workflow_dispatch:
+
+name: publish
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: prep/go.mod
+      - name: load version from file
+        run: export VERSION=$(cat VERSION)
+      - name: build and publish amd64
+        run: |
+          make all VERSION=$(VERSION) ARCH=amd64
+          make all VERSION=$(VERSION) ARCH=arm64
+          curl -F package=@dist/* https://${{ secrets.GEMFURY_TOKEN }}@push.fury.io/iio/
