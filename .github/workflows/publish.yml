@@ -17,6 +17,6 @@ jobs:
         run: echo "VERSION=$(cat VERSION)" >> "$GITHUB_ENV"
       - name: build and publish
         run: |
-          make all VERSION=$(VERSION) ARCH=amd64
-          make all VERSION=$(VERSION) ARCH=arm64
+          make all VERSION=$VERSION ARCH=amd64
+          make all VERSION=$VERSION ARCH=arm64
           curl -F package=@dist/* https://${{ secrets.GEMFURY_TOKEN }}@push.fury.io/iio/
