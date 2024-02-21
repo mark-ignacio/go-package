@@ -13,6 +13,8 @@ jobs:
       - uses: actions/setup-go@v4
         with:
           go-version-file: prep/go.mod
+      - name: go install nfpm
+        run: go install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.35.3
       - name: load version from file
         run: echo "VERSION=$(cat VERSION)" >> "$GITHUB_ENV"
       - name: build and publish
