@@ -1,0 +1,5 @@
+# where we will usually prepare binaries
+/package
+
+# where the rpms and such live
+/dist
