@@ -13,9 +13,10 @@ jobs:
       - uses: actions/setup-go@v4
         with:
           go-version-file: prep/go.mod
-      - name: build and publish amd64
+      - name: load version from file
+        run: echo "VERSION=$(cat VERSION)" >> "$GITHUB_ENV"
+      - name: build and publish
         run: |
-          export VERSION=$(cat VERSION)
           make all VERSION=$(VERSION) ARCH=amd64
           make all VERSION=$(VERSION) ARCH=arm64
           curl -F package=@dist/* https://${{ secrets.GEMFURY_TOKEN }}@push.fury.io/iio/
