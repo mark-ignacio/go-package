@@ -6,7 +6,7 @@ section: "default"
 maintainer: "Mark Ignacio <mark@ignacio.io>"
 description: The Go Programming Language.
 # vendor: "FooBarCorp"
-homepage: "https://github.com/mark-ignacio/go-package/prep"
+homepage: "https://github.com/mark-ignacio/go-package"
 license: "BSD-3-Clause"
 # changelog: "changelog.yaml"
 contents:
